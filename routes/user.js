@@ -152,7 +152,7 @@ module.exports = function(app, User)
     }
   });
 
-  app.post('/api/user/signup', async (req, res, next) => {
+  app.post('/api/auth/signup', async (req, res, next) => {
     try {
       const exUser = await User.findOne({ where: { email: req.body.email } });
       if (exUser) {
@@ -174,7 +174,7 @@ module.exports = function(app, User)
     }
   });
 
-  app.post("/api/user/login", (req, res, next) => {
+  app.post("/api/auth/login", (req, res, next) => {
     passport.authenticate('local', async (err, user, info) => {
       if (err) {
         console.log(err);
