@@ -71,33 +71,33 @@ module.exports = function(app, User, Image, Post,Like,Report) {
     }
   });
 
-  app.get('/api/post/:postId', async (req, res) => {
-    try {
-      const postId = req.params.postId;
-
-      const post = await Post.findOne({
-        where: {
-          id: postId
-        }
-      });
-
-      const images = await Image.findAll({
-        where: {
-          postId: postId
-        }
-      });
-
-      if (!post) {
-        return res.status(404).send({ error: 'Post not found' });
-      }
-
-      res.send({post,images});
-
-    } catch (error) {
-      console.error('Error getting post:', error);
-      res.status(500).send({ error: 'Error getting post' });
-    }
-  });
+  // app.get('/api/post/:postId', async (req, res) => {
+  //   try {
+  //     const postId = req.params.postId;
+  //
+  //     const post = await Post.findOne({
+  //       where: {
+  //         id: postId
+  //       }
+  //     });
+  //
+  //     const images = await Image.findAll({
+  //       where: {
+  //         postId: postId
+  //       }
+  //     });
+  //
+  //     if (!post) {
+  //       return res.status(404).send({ error: 'Post not found' });
+  //     }
+  //
+  //     res.send({post,images});
+  //
+  //   } catch (error) {
+  //     console.error('Error getting post:', error);
+  //     res.status(500).send({ error: 'Error getting post' });
+  //   }
+  // });
 
   // app.get('/api/main', async (req, res) => {
   //   try {
@@ -129,51 +129,6 @@ module.exports = function(app, User, Image, Post,Like,Report) {
   //   }
   // });
 
-  app.get('/api/main', async (req, res) => {
-    try {
-      // 더미 데이터 생성
-      const posts = Array.from({ length: 12 }).map((_, id) => ({
-        id: id + 1,
-        content: "ㅁㄴㅇㅁㄴㅇㅁㄴㅇㅁㄴㅇㅁㄴㅇㅁㅇ",
-        musicTitle: "버즈(Buzz) - 가시 [가사/Lyrics]",
-        musicUrl: "https://www.youtube.com/watch?v=1-Lm2LUR8Ss",
-        tag: "도라에몽, 펀치",
-        placeName: "전라남도 완도군 완도읍 신기길 56 3 ",
-        latitude: 126.742,
-        longitude: 34.3275,
-        private: false,
-        createdAt: "2023-08-03T07:51:46.000Z",
-        updatedAt: "2023-08-03T07:51:46.000Z",
-        userId: 1,
-        image: {
-          url: "https://avatars.githubusercontent.com/u/32028454?v=4"
-        }
-      }));
-      const likePosts = Array.from({ length: 5 }).map((_, id) => ({
-        id: id + 1,
-        content: "ㅁㄴㅇㅁㄴㅇㅁㄴㅇㅁㄴㅇㅁㄴㅇㅁㅇ",
-        musicTitle: "버즈(Buzz) - 가시 [가사/Lyrics]",
-        musicUrl: "https://www.youtube.com/watch?v=1-Lm2LUR8Ss",
-        tag: "도라에몽, 펀치",
-        placeName: "전라남도 완도군 완도읍 신기길 56 3 ",
-        latitude: 126.742,
-        longitude: 34.3275,
-        private: false,
-        createdAt: "2023-08-03T07:51:46.000Z",
-        updatedAt: "2023-08-03T07:51:46.000Z",
-        userId: 1,
-        image: {
-          url: "https://avatars.githubusercontent.com/u/32028454?v=4"
-        }
-      }));
-
-      res.send({posts,likePosts});
-
-    } catch (error) {
-      console.error('Error getting posts:', error);
-      res.status(500).send({ error: 'Error getting posts' });
-    }
-  });
 
   app.post('/api/post/:postId/like', async (req, res) => {
     const { postId } = req.params; // URL 파라미터에서 postId를 추출
