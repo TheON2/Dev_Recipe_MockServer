@@ -152,6 +152,15 @@ module.exports = function(app, User)
     }
   });
 
+  app.get('/api/auth/users', async (req, res) => {
+    try {
+      const user = await User.findAll();
+      res.send(user);
+    } catch (error) {
+      res.status(500).send(error);
+    }
+  });
+
   app.post('/api/auth/signup', async (req, res, next) => {
     try {
       const exUser = await User.findOne({ where: { email: req.body.email } });
